@@ -4,6 +4,9 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='home'),
-    path('mem/<slug:memid>', categories),
+    path('mem/<int:memid>', show_mem, name='mem'),
     path('about/', about, name='about'),
+    path('add_page/', addPage, name='add_page'),
+    path('contact/', contact, name='contact'),
+    path('login/', login, name='login'),
 ]
