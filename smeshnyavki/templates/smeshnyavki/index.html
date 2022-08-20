@@ -5,12 +5,22 @@
 {% block content %}
 <ul class="list-articles">
     {% for m in posts %}
-    <li><h2>{{m.title}}</h2>
+    <li>
+        <div class="article-panel">
+            <p class = "first"> Категория: {{m.categ}}</p>
+            <p class = "last"> Дата: {{m.pub_time|date:"d-m-Y H:i"}}</p>
+        </div>
+
+        <h2>{{m.title}}</h2>
+        {% if m.photo %}
+        <p> <img class="img-artile-left thumb" src="{{m.photo.url}}" ></p>
+        {% endif %}
+        by <u><b>{{m.categ}} </b></u>
         {% autoescape on %}
         {{m.content|linebreaks|truncatewords:30}}
         {% endautoescape %}
         <div class="clear"></div>
-        <p class="link-read-post"><a href="{url 'show_mem' m.pk}">Читать пост</a></p>
+        <p class="link-read-post"><a href="{% url 'mem' m.pk %}">Читать пост</a></p>
     </li>
     {% endfor %}
 </ul>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load smeshnyavki_tags %}
 
 <html>
 <head>
@@ -33,11 +34,17 @@
             <tr>
                 <!-- Sidebar слева -->
                 <td valign="top" class="left-chapters">
+                    <!-- {% getCategs filter=2 %} -->
                     <ul id="leftchapters">
-                        <li class="selected">Все категории</li>
-                        <li><a href="#">Котики</a></li>
-                        <li><a href="#">Котики поменвше</a></li>
-                        <li><a href="#">Жесть какие манюсенькие</a></li>
+                        {% if categ_selected == 0 %}
+                            <li class="selected">Все категории</li>
+                        {% else %}
+                        <li> <a href="{% url 'home' %}">Все категории</a>></li>
+                        {% endif %}
+
+                        <!-- {% getCategs as categories %} -->
+
+                        {% show_categories 'name' categ_selected%}
                         <li class="share">
                             <p>Наш канал</p>
                             <a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
