@@ -20,7 +20,7 @@
         {{m.content|linebreaks|truncatewords:30}}
         {% endautoescape %}
         <div class="clear"></div>
-        <p class="link-read-post"><a href="{% url 'mem' m.pk %}">Читать пост</a></p>
+        <p class="link-read-post"><a href="{% url 'mem' m.slug %}">Читать пост</a></p>
     </li>
     {% endfor %}
 </ul>

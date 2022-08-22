@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from smeshnyavki.forms import *
 from smeshnyavki.models import *
 
 MENU = [{"title":"About", "url_name":"about"},
@@ -27,8 +27,19 @@ def about(request):
     return render(request, "smeshnyavki/about.html", conext)
 
 def addPage(request):
+    if request.method == 'POST':
+        form = AddMemForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)
+            try:
+                Smeshnyavkа.objects.create(**form.cleaned_data)
+                return(redirect('home'))
+            except:
+                form.add_error(None, 'Ошибка добавления постика')
+    else:
+        form = AddMemForm()
     conext = {'title':'О сайтике..', "menu":MENU}
-    return render(request, "smeshnyavki/about.html", conext)
+    return render(request, "smeshnyavki/addpage.html", {'form':form, 'menu':MENU, 'title':'Добавление мемчика'})
 
 def contact(request):
     conext = {'title':'О сайтике..', "menu":MENU}
@@ -38,13 +49,20 @@ def login(request):
     conext = {'title':'О сайтике..', "menu":MENU}
     return render(request, "smeshnyavki/about.html", conext)
 
-def show_mem(request, memid):
-    return(HttpResponse(f"отображение мема номер{memid}"))
+def show_mem(request, mem_slug):
+    mem = get_object_or_404(Smeshnyavkа,slug=mem_slug)
+
+    context ={
+        'mem': mem,
+        'menu': MENU,
+        'categ_selected':mem.categ.pk,
+    }
+
+    return(render(request, 'smeshnyavki/mem.html', context))
 
 def show_category(request, catid):
     posts = Smeshnyavkа.objects.filter(categ_id=catid)
     categs = Category.objects.all()
-
     context = {
         'posts':posts,
         'categs':categs,

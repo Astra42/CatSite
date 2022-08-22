@@ -1,0 +1,9 @@
+{% extends "smeshnyavki/base.html" %}
+
+{% block content %}
+    <h1> {{ mem.title }}</h1>
+    {% if mem.photo %}
+        <p><img class="img-article-left" src="{{ mem.photo.url }}"></p>
+    {% endif %}
+    {{ mem.content|linebreaks }}
+{% endblock %}
