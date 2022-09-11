@@ -10,7 +10,7 @@ class Smeshnyavkа(Model):
     photo = ImageField(upload_to="photo/%Y/%m/%d/", verbose_name="фото")
     pub_time = DateTimeField(auto_now_add=True, verbose_name="дата публикации")
     is_published = BooleanField(default=True,  verbose_name="Публикация")
-    categ = ForeignKey('Category', on_delete=PROTECT)
+    categ = ForeignKey('Category', on_delete=PROTECT,  verbose_name="Категория котика")
 
     def __str__(self):
         return self.title
@@ -32,6 +32,6 @@ class Category(Model):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
-        ordering = ['id']
+        ordering = ['pk',]
 
 

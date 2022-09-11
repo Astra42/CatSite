@@ -13,7 +13,7 @@ class SmeshnyavkаAdmin(admin.ModelAdmin):
 admin.site.register(Smeshnyavkа, SmeshnyavkаAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'slug')
     list_display_links = ('id', 'name')
     search_fields = ('name', 'id')
     prepopulated_fields = {"slug": ("name",)}

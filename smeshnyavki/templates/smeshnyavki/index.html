@@ -4,7 +4,7 @@
 
 {% block content %}
 <ul class="list-articles">
-    {% for m in posts %}
+    {% for m in memes %}
     <li>
         <div class="article-panel">
             <p class = "first"> Категория: {{m.categ}}</p>
@@ -19,9 +19,10 @@
         {% autoescape on %}
         {{m.content|linebreaks|truncatewords:30}}
         {% endautoescape %}
-        <div class="clear"></div>
+
         <p class="link-read-post"><a href="{% url 'mem' m.slug %}">Читать пост</a></p>
     </li>
     {% endfor %}
+<a href="{% url 'home'%}">На главную</a>
 </ul>
 {% endblock %}

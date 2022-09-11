@@ -1,7 +1,9 @@
 {% for cat in categs %}
-    {% if cat.pk == categ_selected %}
-        <li class="selected">{{cat.name}}</li>
-    {% else %}
-        <li> <a href="{% url 'category' cat.pk %}">{{cat.name}}</a></li>
+    {% if cat.smeshnyavka__count > 0 %}
+        {% if cat.pk == categ_selected %}
+            <li class="selected">{{cat.name}}</li>
+        {% else %}
+            <li> <a href="{% url 'category' cat.slug %}">{{cat.name}}</a></li>
+        {% endif %}
     {% endif %}
 {% endfor %}

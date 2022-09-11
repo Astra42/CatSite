@@ -1,0 +1,28 @@
+{% extends 'smeshnyavki/base.html' %}
+<!--<h1>{{title}}</h1>-->
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ form.as_p }}&lt;!&ndash;выводим форму&ndash;&gt;-->
+
+<!--        <button type="submit">Войти </button>-->
+<!--    </form>-->
+
+
+
+
+{% block content %}
+    <h1>{{title}}</h1>
+    <form method="post">
+        {% csrf_token %}
+<!--вверху выводим общие ошибки, не связанные с полями-->
+        <div class="form-error">{{ form.non_field_errors }} </div>
+
+        {% for item in form %}
+        <!--выводим через цикл поле и ошибку, если она есть-->
+            <p><label class="form-label" for="{{ item.id_for_label }}"> {{item.label}}: </label> {{ item }}</p>
+            <div class="form-error"> {{ item.errors }}</div>
+        {% endfor %}
+        <button type="submit">Войти </button>
+    </form>
+
+{% endblock %}

@@ -22,9 +22,17 @@ from smeshnyavki.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('smeshnyavki.urls'))
+    path('', include('smeshnyavki.urls')),
+    path("captcha/", include('captcha.urls')),
 ]
 if(settings.DEBUG):#в режиме отладки к маршрутам добавляем ещё один для граф. данных
+    import debug_toolbar
+
+    urlpatterns=[
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 handler404 = pageNotFound
